@@ -1,5 +1,4 @@
-// jshint esversion:6
-
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -13,6 +12,8 @@ mongoose.set("strictQuery", false);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
+const password = process.env.PASSWORD;
+
 // Method to connect to mongodb data base
 main().catch((err) => console.log(err));
 
@@ -20,8 +21,11 @@ main().catch((err) => console.log(err));
 //   await mongoose.connect("mongodb://127.0.0.1:27017/blogDB");
 //   // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
 // }
+
 async function main() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/blogsiteDB");
+  await mongoose.connect(
+    `mongodb+srv://srj2777:${password}@srj27.2rqs7ex.mongodb.net/blogDB`
+  );
   // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
 }
 
